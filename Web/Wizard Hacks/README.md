@@ -10,6 +10,8 @@
 
 <img width="998" alt="image" src="https://github.com/user-attachments/assets/0155b730-e460-4d54-812d-527de84687ab" />
 
+Читаем флаг в /app/flag.txt
+
 # Flag
 
 flag{ssti_explo1t3d_succ3ssfully}
