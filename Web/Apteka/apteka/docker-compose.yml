@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:latest
+    container_name: apteka_db
+    environment:
+      POSTGRES_DB: apteka_db
+      POSTGRES_USER: apteka_user
+      POSTGRES_PASSWORD: 0d3f0f0b-fd2b-4d42-b4aa-2a180a70b5b6
+    volumes:
+      - db_data:/var/lib/postgresql/data
+#      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  aptekaapp:
+    container_name: aptekaapp
+    build: ./python
+    volumes:
+      - ./python:/app
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgres://apteka_user:0d3f0f0b-fd2b-4d42-b4aa-2a180a70b5b6@db/apteka_db
+
+#  apteka_adminer:
+#    image: adminer
+#    ports:
+#      - 6090:8080
+
+  nginx:
+    container_name: apteka_nginx
+    image: nginx
+    volumes:
+      - ./nginx/nginx.conf:/tmp/nginx.conf
+    environment: 
+      - FLASK_SERVER_ADDR=aptekaapp:5000  
+    command: /bin/bash -c "envsubst < /tmp/nginx.conf > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'" 
+    ports:
+      - 6080:80
+    depends_on:
+      - aptekaapp
+
+volumes:
+  db_data:

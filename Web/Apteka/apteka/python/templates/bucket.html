@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Корзина</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+<!-- A grey horizontal navbar that becomes vertical on small screens -->
+<nav class="navbar navbar-expand-sm bg-light">
+    <div class="container-fluid" style="height: 75px;">
+    <!-- Links -->
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="btn btn-outline-warning" style="width: 150px; margin-right: 3px; color: black;" href="/profile">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                      </svg> Профиль
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="btn btn-outline-warning" style="width: 150px; margin-right: 3px; color: black;" href="/shop">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-plus" viewBox="0 0 16 16">
+                        <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9z"/>
+                        <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zm3.915 10L3.102 4h10.796l-1.313 7zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+                      </svg> Магазин
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="btn btn-outline-warning" style="width: 150px; margin-right: 3px; color: black;" href="/orders">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bag" viewBox="0 0 16 16">
+                        <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1m3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"/>
+                      </svg> Заказы
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="btn btn-outline-danger" style="width: 150px; margin-right: 3px; color: black;" href="/logout">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z"/>
+                        <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"/>
+                      </svg> Выход
+                </a>
+            </li>
+
+      </ul>
+    </div>
+  </nav>
+
+
+
+  {% with messages = get_flashed_messages(with_categories=True) %}
+  {% if messages %}
+          {% for category, message in messages %}
+                  {% if category == 'success' %}
+                  <div class="d-flex justify-content-center" style="margin-top: 1%;">
+                      <div class="card text-center" style="width: 30rem; padding: 1px;">
+                          <div class="card-body">
+                              <div class="alert alert-success" role="alert">
+                                  {{ message }}
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  {% endif %}
+
+                  {% if category == 'error' %}
+                  <div class="d-flex justify-content-center" style="margin-top: 1%;">
+                      <div class="card text-center" style="width: 30rem; padding: 1px;">
+                          <div class="card-body">
+                              <div class="alert alert-danger" role="alert">
+                                  {{ message }}
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  {% endif %}
+          {% endfor %}
+  {% endif %}
+  {% endwith %}
+
+  <div class="d-flex justify-content-center" style="margin-top: 1%;">
+    <div class="card text-center border border-warning" style="width: 30rem; padding: 10px;">
+
+        <form method="post" action="pay_all" style="margin-top:1%;">
+            <input type="hidden" name="account_number" value="{{ account_number }}">
+            <input style="width: 250px; margin-top: 15px;" class="btn btn-success me-2" type="submit" value="Оплатить всю корзину"/>
+        </form>
+
+        <form method="get" action="clear_buscket" style="margin-top:1%;">
+            <input style="width: 250px; margin-top: 15px;" class="btn btn-danger me-2" type="submit" value="Очистить корзину"/>
+        </form>
+    </div>
+</div>
+    <div id="busckets">
+        
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            async function fetchData(){
+                const response = await fetch(
+                    '/api/buscket',
+                    {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        credentials: 'include'
+                    }
+                );
+    
+                const data = await response.json();
+                console.log(data)
+
+                renderProducts(data.busckets);
+            }
+            
+            function renderProducts(busckets){
+                const divBody = document.querySelector('#busckets');
+                divBody.innerHTML = '';
+                
+                const account_number = "{{ account_number }}"; 
+                
+                busckets.forEach(buscket =>{
+                    div = '<div class="d-flex justify-content-center" style="margin-top: 1%; margin-bottom: 1%">';
+                    div += '<div class="card text-center border border-warning" style="width: 30rem; padding: 10px;">';
+                    div += '<h5 class="card-title">'+ buscket.name +'</h5>';
+                    div += '<div class="d-flex justify-content-center"><img src="/static/img/products/' + buscket.photo + '" style="width:250px; height: 250px; margin-top:1%; margin-bottom: 1%;"/></div>'
+                    div += '<form method="post" action="pay" style="margin-top:1%;"><input type="hidden" name="buscket_id" value="' + buscket.id + '"/>';
+                    div += '<input type="hidden" name="account_number" value="' + account_number + '"/>';
+                    div += '<input style="width: 250px; margin-top: 15px;" class="btn btn-success me-2" type="submit" value="Купить за ' + buscket.price + ' рублей"/>'    
+                    div += "</form>";
+                    div += '<form method="post" action="delete_from_buscket" style="margin-top:1%;"><input type="hidden" name="buscket_id" value="' + buscket.id + '"/>';
+                    div += '<input style="width: 250px; margin-top: 15px;" class="btn btn-danger me-2" type="submit" value="Удалить товар из корзины" рублей"/>'
+                    div += "</form>";
+                    div += "</div>";
+                    div += "</div>";
+                    divBody.innerHTML += div;
+                });
+            }
+            fetchData();
+        });
+    </script>
+</body>
+</html>
