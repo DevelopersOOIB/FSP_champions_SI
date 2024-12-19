@@ -1,3 +1,8 @@
+# Описание 
+
+Наш отдел HR получил странный файл, судя по всему появилась новая организация....
+
+
 # Writeup
 
 <img width="1006" alt="image" src="https://github.com/user-attachments/assets/f4df27cc-cbcb-4162-9a81-d92d4d4429c5" />
