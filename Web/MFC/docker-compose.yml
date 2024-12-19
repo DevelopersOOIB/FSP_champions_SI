@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:latest
+    container_name: mfc_db
+    environment:
+      POSTGRES_DB: mfc_db
+      POSTGRES_USER: mfc_user
+      POSTGRES_PASSWORD: 0d3f0f0b-fd2b-4d42-b4aa-2a180a70b5b6
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  mfcapp:
+    container_name: mfcapp
+    build: ./python
+    volumes:
+      - ./python:/app
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgres://mfc_user:0d3f0f0b-fd2b-4d42-b4aa-2a180a70b5b6@db/mfc_db
+
+#  mfc_adminer:
+#    image: adminer
+#    ports:
+#      - 6092:8080
+
+
+  nginx:
+    container_name: mfc_nginx
+    image: nginx
+    volumes:
+      - ./nginx/nginx.conf:/tmp/nginx.conf
+    environment: 
+      - FLASK_SERVER_ADDR=mfcapp:5000  
+    command: /bin/bash -c "envsubst < /tmp/nginx.conf > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'" 
+    ports:
+      - 6082:80
+    depends_on:
+      - mfcapp
+
+volumes:
+  db_data:
