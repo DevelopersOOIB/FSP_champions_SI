@@ -18,12 +18,38 @@
 key1 = 'k3y_for_3cryp71ion_k3y
 key2 = 'w0w_encryp7ion_key'
 ```
-Далее смотрим в encrypt():
+Далее смотрим в encrypt() и пишем обратный код:
 
 <img width="918" alt="image" src="https://github.com/user-attachments/assets/b0965fed-c020-419d-9f6f-5426b9353f35" />
 
-и пишем небольшой декриптор:
+Солвер целиком:
 ```
+v20 = 'ac8396888389993d5a934598a771f6829aaf'
+v21 = 'd49cdef8a3e8dff89cacdfdee99096aee8ebf8d49cde'
+
+def decr0(a):
+    r = b''
+    for i in a:
+        t = i ^ 0x36
+        t = (t - 125) % 256
+        t = t ^ 0x25
+        t = (t - 118) % 256
+        t = t ^ 0x96 ^ 0x37
+        r += bytes.fromhex(hex(t)[2:].zfill(2))
+    return r
+
+def decr1(a, b):
+    r = b''
+    for i in range(len(a)):
+        t = (a[i] - 88) % 256
+        t = t ^ 0x7f
+        t = (t + 26) % 256
+        t = t ^ 0x33
+        t = (t - 90) % 256
+        t = t ^ b[i%len(b)]
+        r += bytes.fromhex(hex(t)[2:].zfill(2))
+    return r
+
 k1 = b'k3y_for_3cryp71ion_k3y'
 k2 = b'w0w_encryp7ion_key'
 def decr(a, b):
@@ -37,5 +63,9 @@ def decr(a, b):
     return b2
 ct = bytes.fromhex('55105eac565f1b4f4e4c6b1762b5ac1363223c6f574119655e595547280d6a63646e15615721')
 
-print(decr(ct, k2))
+t = decr0(bytes.fromhex(v21))
+print(t)
+t = decr1(bytes.fromhex(v20), t)
+print(t)
+print(decr(ct, t))
 ```
