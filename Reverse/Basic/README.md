@@ -37,5 +37,5 @@ def decr(a, b):
     return b2
 ct = bytes.fromhex('55105eac565f1b4f4e4c6b1762b5ac1363223c6f574119655e595547280d6a63646e15615721')
 
-print(decr(ct, k2, k2))
+print(decr(ct, k2))
 ```
